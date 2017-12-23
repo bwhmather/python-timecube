@@ -1,0 +1,31 @@
+language: python
+sudo: false
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+install:
+  - "pip install -e ."
+  - "pip install coveralls"
+  - "pip install pyflakes"
+  - "pip install pycodestyle"
+  - "pip install pylint"
+  - "if [ \"${TRAVIS_PYTHON_VERSION}\" == '3.6' ]; then pip install sphinx; fi"
+
+script:
+  - "coverage run --source=timecube setup.py test"
+  - "pycodestyle timecube setup.py"
+  - "pyflakes timecube setup.py"
+  - "pylint -E timecube setup.py"
+
+after_success:
+  - "coveralls"
+
+deploy:
+  - provider: pypi
+    distributions: "sdist --formats=zip"
+    user: "bwhmather-travis"
+    on:
+      branch: "master"
+      condition: "\"${TRAVIS_PYTHON_VERSION}\" = '3.6'"

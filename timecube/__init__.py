@@ -1,0 +1,2 @@
+def sentence():
+    raise NotImplementedError()
