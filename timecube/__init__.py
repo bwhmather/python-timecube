@@ -19,7 +19,7 @@ def _build_word_graph():
     # Sentences are divided by whitespace preceded by a terminator.  We use a
     # non consuming lookbehind check for the terminator so that it is kept as
     # part of the sentence.
-    for sentence in re.split('(?<=[\.!?])\s', _data.input_sentences):
+    for sentence in re.split(r'(?<=[\.!?])\s', _data.input_sentences):
         # Split sentence into a list containing a `_BEGIN` token, followed by a
         # list of words, followed by the terminator.
         tokens = [_BEGIN] + sentence[:-1].split() + [sentence[-1]]
